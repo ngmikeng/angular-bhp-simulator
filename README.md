@@ -1,101 +1,210 @@
-# AngularBhpSimulator
+# BHP Real-Time Simulator
+
+[![CI](https://github.com/ngmikeng/angular-bhp-simulator/actions/workflows/ci.yml/badge.svg)](https://github.com/ngmikeng/angular-bhp-simulator/actions/workflows/ci.yml)
+[![Deploy](https://github.com/ngmikeng/angular-bhp-simulator/actions/workflows/deploy.yml/badge.svg)](https://github.com/ngmikeng/angular-bhp-simulator/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[🚀 Live Demo](https://ngmikeng.github.io/angular-bhp-simulator/) | [📖 Documentation](./docs) | [🔧 API Reference](./docs/API.md)
+
+A real-time Bottomhole Pressure (BHP) simulator built with Angular 21, TypeScript, and Apache ECharts. This application demonstrates advanced data visualization, real-time calculations, and modern Angular architecture using Nx monorepo structure.
+
+## ✨ Features
+
+- 📊 **Real-time BHP Calculations** - Dynamic pressure calculations using standard petroleum engineering formulas
+- 📈 **Interactive Visualizations** - Multiple chart types powered by Apache ECharts
+- 🎨 **Theming Support** - Light and dark themes with Angular Material
+- 🏗️ **Modular Architecture** - Three independent Angular libraries with clear separation of concerns
+- 🧪 **Comprehensive Testing** - Unit tests with Vitest for all components and services
+- 🚀 **Nx Monorepo** - Optimized build system with caching and incremental builds
+- 📱 **Responsive Design** - Works seamlessly across desktop and mobile devices
+
+## 🏗️ Project Structure
+
+This workspace is organized as an Nx monorepo with the following structure:
+
+```
+angular-bhp-simulator/
+├── apps/
+│   └── demo-app/              # Demo application showcasing the libraries
+├── libs/
+│   ├── bhp-calculator/        # Core BHP calculation engine
+│   ├── chart-components/      # Reusable chart components with ECharts
+│   └── data-generator/        # Synthetic data generation utilities
+└── docs/                      # Project documentation
+```
+
+## 🚀 Quick Start
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 22.x or later
+- npm 10.x or later
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/ngmikeng/angular-bhp-simulator.git
+cd angular-bhp-simulator
+
+# Install dependencies
+npm install
+```
+
+### Development Server
+
+```bash
+# Start the development server
+npm start
+# or
+npx nx serve demo-app
+
+# Navigate to http://localhost:4200/
+```
+
+### Building
+
+```bash
+# Build all libraries and the demo application
+npm run build
+# or
+npx nx build demo-app --configuration=production
+```
+
+### Testing
+
+```bash
+# Run all tests
+npm run test:all
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+### Linting
+
+```bash
+# Lint all projects
+npm run lint
+
+# Lint with auto-fix
+npm run lint:fix
+```
+
+## 📦 Libraries
+
+### @angular-bhp-simulator/bhp-calculator
+
+Core calculation engine for Bottomhole Pressure computations.
+
+- Hydrostatic pressure calculations
+- Friction pressure loss calculations
+- Temperature corrections
+- Unit conversions (psi, bar, MPa)
+
+[Library README](./libs/bhp-calculator/README.md)
+
+### @angular-bhp-simulator/chart-components
+
+Reusable Angular components for data visualization.
+
+- Line charts for trend analysis
+- Gauge charts for real-time metrics
+- Scatter plots for correlation analysis
+- Bar charts for comparative analysis
+
+[Library README](./libs/chart-components/README.md)
+
+### @angular-bhp-simulator/data-generator
+
+Utilities for generating synthetic drilling data.
+
+- Configurable data generation
+- Realistic noise and trends
+- Multiple parameter support
+- Time-series data generation
+
+[Library README](./libs/data-generator/README.md)
+
+## 🎯 Usage Example
+
+```typescript
+import { BhpCalculatorService } from '@angular-bhp-simulator/bhp-calculator';
+import { DataGeneratorService } from '@angular-bhp-simulator/data-generator';
+
+// Generate synthetic drilling data
+const data = dataGenerator.generateDrillingData({
+  duration: 60,
+  depth: { min: 0, max: 5000 }
+});
+
+// Calculate BHP
+const bhp = bhpCalculator.calculateBHP({
+  mudDensity: 1.2,
+  depth: 3000,
+  flowRate: 500
+});
+```
+
+## 📊 Demo Application
+
+The demo application showcases all three libraries working together:
+
+- **Real-time Simulation** - Start/stop/reset controls with adjustable parameters
+- **Dashboard View** - Overview of all key metrics and charts
+- **Interactive Charts** - Zoom, pan, and interact with time-series data
+- **Theme Toggle** - Switch between light and dark modes
+- **Responsive Layout** - Optimized for desktop and mobile
+
+## 🛠️ Technology Stack
+
+- **Angular 21** - Latest Angular framework with standalone components
+- **TypeScript 5.9** - Strongly typed JavaScript
+- **Apache ECharts 6.0** - Professional data visualization library
+- **Angular Material 21** - Material Design components
+- **Nx 22** - Build system and monorepo tools
+- **Vitest 4** - Fast unit testing framework
+- **RxJS 7.8** - Reactive programming library
+- **SCSS** - Advanced CSS with variables and mixins
+
+## 📁 Project Documentation
+
+- [Architecture Guide](./docs/ARCHITECTURE.md) - System design and component architecture
+- [API Reference](./docs/API.md) - Detailed API documentation for all libraries
+- [User Guide](./docs/USER_GUIDE.md) - How to use the demo application
+- [Deployment Guide](./docs/DEPLOYMENT.md) - CI/CD and deployment instructions
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](./CONTRIBUTING.md) and [Code of Conduct](./CODE_OF_CONDUCT.md) before submitting a pull request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with [Nx](https://nx.dev) - Smart Monorepos · Fast CI
+- Charts powered by [Apache ECharts](https://echarts.apache.org/)
+- UI components from [Angular Material](https://material.angular.io/)
+
+## 🔗 Links
+
+- [Live Demo](https://ngmikeng.github.io/angular-bhp-simulator/)
+- [GitHub Repository](https://github.com/ngmikeng/angular-bhp-simulator)
+- [Issue Tracker](https://github.com/ngmikeng/angular-bhp-simulator/issues)
+
+---
+
+<div align="center">
+
+Built with ❤️ using Angular and Nx
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
-
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
-npx nx serve angular-bhp-simulator
-```
-
-To create a production bundle:
-
-```sh
-npx nx build angular-bhp-simulator
-```
-
-To see all available targets to run for a project, run:
-
-```sh
-npx nx show project angular-bhp-simulator
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/angular:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+</div>

@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nx serve demo-app",
     "build": "nx build demo-app",
+    "build:prod": "nx build demo-app --configuration=production",
     "test": "nx test demo-app",
     "test:all": "nx run-many --target=test --all --watch=false",
     "test:coverage": "nx run-many --target=test --all --coverage --watch=false",
@@ -12,7 +13,8 @@
     "lint": "nx run-many --target=lint --all",
     "lint:fix": "nx run-many --target=lint --all --fix",
     "format": "prettier --write \"**/*.{ts,html,scss,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,html,scss,json,md}\""
+    "format:check": "prettier --check \"**/*.{ts,html,scss,json,md}\"",
+    "verify:cicd": "./scripts/verify-cicd-setup.sh"
   },
   "private": true,
   "dependencies": {

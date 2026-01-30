@@ -43,7 +43,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 ```bash
 # Clone the repository
-git clone https://github.com/[username]/angular-bhp-simulator.git
+git clone https://github.com/ngmikeng/angular-bhp-simulator.git
 cd angular-bhp-simulator
 
 # Install dependencies
@@ -189,7 +189,7 @@ npm run test:coverage
 If you have questions, please:
 
 1. Check the [documentation](./docs/)
-2. Search existing [GitHub issues](https://github.com/[username]/angular-bhp-simulator/issues)
+2. Search existing [GitHub issues](https://github.com/ngmikeng/angular-bhp-simulator/issues)
 3. Create a new issue with the **question** label
 
 ## License
