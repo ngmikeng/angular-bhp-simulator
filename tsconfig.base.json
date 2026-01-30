@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "emitDecoratorMetadata": false,
+    "target": "es2022",
+    "module": "preserve",
+    "lib": ["es2020", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@angular-bhp-simulator/bhp-calculator": ["bhp-calculator/src/index.ts"],
+      "@angular-bhp-simulator/data-generator": ["data-generator/src/index.ts"],
+      "@angular-bhp-simulator/chart-components": [
+        "chart-components/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

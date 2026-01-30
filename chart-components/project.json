@@ -1,0 +1,32 @@
+{
+  "name": "chart-components",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "chart-components/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "chart-components/ng-package.json",
+        "tsConfig": "chart-components/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "chart-components/tsconfig.lib.prod.json"
+        },
+        "development": {}
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {}
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
