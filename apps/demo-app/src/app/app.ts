@@ -6,8 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ThemeService } from './services/theme.service';
-import { ErrorService } from './services/error.service';
+import { ThemeService } from './shared/services/theme.service';
+import { ErrorService } from './shared/services/error.service';
 
 @Component({
   imports: [

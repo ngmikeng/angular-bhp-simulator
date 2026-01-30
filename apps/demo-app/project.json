@@ -1,27 +1,27 @@
 {
-  "name": "angular-bhp-simulator",
-  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "name": "demo-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "includedScripts": [],
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "./src",
+  "sourceRoot": "apps/demo-app/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/angular-bhp-simulator",
-        "browser": "./src/main.ts",
-        "tsConfig": "tsconfig.app.json",
+        "outputPath": "dist/apps/demo-app",
+        "browser": "apps/demo-app/src/main.ts",
+        "tsConfig": "apps/demo-app/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "public"
+            "input": "apps/demo-app/public"
           }
         ],
-        "styles": ["./src/styles.scss"]
+        "styles": ["apps/demo-app/src/styles.scss"]
       },
       "configurations": {
         "production": {
@@ -52,10 +52,10 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "angular-bhp-simulator:build:production"
+          "buildTarget": "demo-app:build:production"
         },
         "development": {
-          "buildTarget": "angular-bhp-simulator:build:development"
+          "buildTarget": "demo-app:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -63,19 +63,21 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["./src"]
+        "lintFilePatterns": ["apps/demo-app/src"]
       }
     },
     "test": {
       "executor": "@angular/build:unit-test",
-      "options": {}
+      "options": {
+        "tsConfig": "apps/demo-app/tsconfig.spec.json"
+      }
     },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "angular-bhp-simulator:build",
-        "staticFilePath": "dist/angular-bhp-simulator/browser",
+        "buildTarget": "demo-app:build",
+        "staticFilePath": "dist/apps/demo-app/browser",
         "spa": true
       }
     }

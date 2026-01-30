@@ -35,13 +35,13 @@ Set up continuous integration and deployment pipeline using GitHub Actions. Depl
 
 2. Create GitHub repository:
    - Go to GitHub and create new repository
-   - Name: `bhp-realtime-simulator`
+   - Name: `angular-bhp-simulator`
    - Description: "Real-time Bottomhole Pressure calculator with Angular and ECharts"
    - Public repository
 
 3. Push to GitHub:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/bhp-realtime-simulator.git
+   git remote add origin https://github.com/ngmikeng/angular-bhp-simulator.git
    git branch -M main
    git push -u origin main
    ```
@@ -85,7 +85,7 @@ Set up continuous integration and deployment pipeline using GitHub Actions. Depl
          - name: Setup Node.js
            uses: actions/setup-node@v4
            with:
-             node-version: '20'
+             node-version: '22'
              cache: 'npm'
          
          - name: Install dependencies
@@ -171,14 +171,14 @@ git push
          - name: Setup Node.js
            uses: actions/setup-node@v4
            with:
-             node-version: '20'
+             node-version: '22'
              cache: 'npm'
          
          - name: Install dependencies
            run: npm ci
          
          - name: Build
-           run: npx nx build demo-app --configuration=production --base-href=/bhp-realtime-simulator/
+           run: npx nx build demo-app --configuration=production --base-href=/angular-bhp-simulator/
          
          - name: Upload artifact
            uses: actions/upload-pages-artifact@v2
@@ -205,7 +205,7 @@ git push
        "build": {
          "configurations": {
            "production": {
-             "baseHref": "/bhp-realtime-simulator/"
+             "baseHref": "/angular-bhp-simulator/"
            }
          }
        }
@@ -247,7 +247,7 @@ git push
 3. Wait for deployment to complete
 
 4. Verify site is live:
-   - URL: `https://YOUR_USERNAME.github.io/bhp-realtime-simulator/`
+   - URL: `https://ngmikeng.github.io/angular-bhp-simulator/`
 
 5. Test all functionality on deployed site
 
@@ -275,12 +275,12 @@ git push
    ```markdown
    # BHP Real-Time Simulator
    
-   [![CI](https://github.com/YOUR_USERNAME/bhp-realtime-simulator/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/bhp-realtime-simulator/actions/workflows/ci.yml)
-   [![Deploy](https://github.com/YOUR_USERNAME/bhp-realtime-simulator/actions/workflows/deploy.yml/badge.svg)](https://github.com/YOUR_USERNAME/bhp-realtime-simulator/actions/workflows/deploy.yml)
-   [![codecov](https://codecov.io/gh/YOUR_USERNAME/bhp-realtime-simulator/branch/main/graph/badge.svg)](https://codecov.io/gh/YOUR_USERNAME/bhp-realtime-simulator)
+   [![CI](https://github.com/ngmikeng/angular-bhp-simulator/actions/workflows/ci.yml/badge.svg)](https://github.com/ngmikeng/angular-bhp-simulator/actions/workflows/ci.yml)
+   [![Deploy](https://github.com/ngmikeng/angular-bhp-simulator/actions/workflows/deploy.yml/badge.svg)](https://github.com/ngmikeng/angular-bhp-simulator/actions/workflows/deploy.yml)
+   [![codecov](https://codecov.io/gh/ngmikeng/angular-bhp-simulator/branch/main/graph/badge.svg)](https://codecov.io/gh/ngmikeng/angular-bhp-simulator)
    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
    
-   [Live Demo](https://YOUR_USERNAME.github.io/bhp-realtime-simulator/) | [Documentation](./docs)
+   [Live Demo](https://ngmikeng.github.io/angular-bhp-simulator/) | [Documentation](./docs)
    ```
 
 2. Add project description and features
@@ -321,7 +321,7 @@ git push
          - name: Setup Node.js
            uses: actions/setup-node@v4
            with:
-             node-version: '20'
+             node-version: '22'
          
          - name: Install dependencies
            run: npm ci
@@ -417,7 +417,7 @@ git push
      uses: treosh/lighthouse-ci-action@v9
      with:
        urls: |
-         https://YOUR_USERNAME.github.io/bhp-realtime-simulator/
+         https://ngmikeng.github.io/angular-bhp-simulator/
        uploadArtifacts: true
    ```
 
@@ -513,7 +513,7 @@ gh workflow list
 gh run list
 
 # Test deployment
-curl -I https://YOUR_USERNAME.github.io/bhp-realtime-simulator/
+curl -I https://ngmikeng.github.io/angular-bhp-simulator/
 ```
 
 ---
@@ -550,7 +550,7 @@ gh workflow list
 gh run list --limit 5
 
 # Check deployment
-curl https://YOUR_USERNAME.github.io/bhp-realtime-simulator/
+curl https://ngmikeng.github.io/angular-bhp-simulator/
 
 # Test CI
 git checkout -b test-ci

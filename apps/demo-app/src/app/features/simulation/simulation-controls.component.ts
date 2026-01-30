@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AppStateService } from '../../services/app-state.service';
+import { AppStateService } from '../../shared/services/app-state.service';
 import { DataPattern } from '@angular-bhp-simulator/data-generator';
 
 /**

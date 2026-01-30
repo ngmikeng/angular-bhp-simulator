@@ -9,14 +9,14 @@ export const appRoutes: Route[] = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./pages/dashboard/dashboard.component').then(
+      import('./features/dashboard/dashboard.component').then(
         (m) => m.DashboardComponent
       ),
   },
   {
     path: 'about',
     loadComponent: () =>
-      import('./pages/about/about.component').then((m) => m.AboutComponent),
+      import('./features/dashboard/about.component').then((m) => m.AboutComponent),
   },
   {
     path: '**',

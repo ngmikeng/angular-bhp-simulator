@@ -1,7 +1,7 @@
 {
   "name": "bhp-calculator",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "bhp-calculator/src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/bhp-calculator/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
@@ -10,12 +10,12 @@
       "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "bhp-calculator/ng-package.json",
-        "tsConfig": "bhp-calculator/tsconfig.lib.json"
+        "project": "libs/bhp-calculator/ng-package.json",
+        "tsConfig": "libs/bhp-calculator/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "bhp-calculator/tsconfig.lib.prod.json"
+          "tsConfig": "libs/bhp-calculator/tsconfig.lib.prod.json"
         },
         "development": {}
       },

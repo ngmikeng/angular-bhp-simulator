@@ -10,12 +10,12 @@ import {
   BHPStreamService,
   EnhancedDataPoint,
 } from '@angular-bhp-simulator/bhp-calculator';
-import { AppStateService } from '../../services/app-state.service';
-import { ThemeService } from '../../services/theme.service';
-import { ErrorService } from '../../services/error.service';
-import { SimulationControlsComponent } from '../../components/simulation-controls/simulation-controls.component';
-import { MetricsPanelComponent } from '../../components/metrics-panel/metrics-panel.component';
-import { ChartGridComponent } from '../../components/chart-grid/chart-grid.component';
+import { AppStateService } from '../../shared/services/app-state.service';
+import { ThemeService } from '../../shared/services/theme.service';
+import { ErrorService } from '../../shared/services/error.service';
+import { SimulationControlsComponent } from '../simulation/simulation-controls.component';
+import { MetricsPanelComponent } from '../../shared/components/metrics-panel.component';
+import { ChartGridComponent } from '../charts/chart-grid.component';
 
 /**
  * Dashboard page component

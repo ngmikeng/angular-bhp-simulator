@@ -1,12 +1,17 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "outDir": "../../dist/out-tsc",
     "types": ["vitest/globals", "node"],
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
   "files": [],
-  "include": []
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.d.ts"
+  ],
+  "exclude": []
 }

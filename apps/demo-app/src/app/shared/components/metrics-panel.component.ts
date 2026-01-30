@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil, scan } from 'rxjs/operators';
 import { MetricCardComponent } from '@angular-bhp-simulator/chart-components';
 import { EnhancedDataPoint } from '@angular-bhp-simulator/bhp-calculator';
-import { MetricData, TrendDirection } from '../../models/app-state.model';
+import { MetricData, TrendDirection } from '../models/app-state.model';
 
 /**
  * Metrics panel component

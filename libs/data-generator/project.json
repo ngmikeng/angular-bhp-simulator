@@ -1,7 +1,7 @@
 {
-  "name": "chart-components",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "chart-components/src",
+  "name": "data-generator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/data-generator/src",
   "prefix": "lib",
   "projectType": "library",
   "tags": [],
@@ -10,12 +10,12 @@
       "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
-        "project": "chart-components/ng-package.json",
-        "tsConfig": "chart-components/tsconfig.lib.json"
+        "project": "libs/data-generator/ng-package.json",
+        "tsConfig": "libs/data-generator/tsconfig.lib.json"
       },
       "configurations": {
         "production": {
-          "tsConfig": "chart-components/tsconfig.lib.prod.json"
+          "tsConfig": "libs/data-generator/tsconfig.lib.prod.json"
         },
         "development": {}
       },

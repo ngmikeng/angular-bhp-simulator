@@ -46,7 +46,7 @@ Final phase focusing on comprehensive documentation, performance optimization, a
    
    ## 📊 Live Demo
    
-   [View Live Demo](https://YOUR_USERNAME.github.io/bhp-realtime-simulator/)
+   [View Live Demo](https://ngmikeng.github.io/angular-bhp-simulator/)
    
    ## 🏗️ Architecture
    
@@ -71,8 +71,8 @@ Final phase focusing on comprehensive documentation, performance optimization, a
    
    ```bash
    # Clone repository
-   git clone https://github.com/YOUR_USERNAME/bhp-realtime-simulator.git
-   cd bhp-realtime-simulator
+   git clone https://github.com/ngmikeng/angular-bhp-simulator.git
+   cd angular-bhp-simulator
    
    # Install dependencies
    npm install

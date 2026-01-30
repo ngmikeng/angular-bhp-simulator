@@ -17,6 +17,8 @@ Create an Angular workspace application that simulates the real-time Bottom Hole
 
 ### Workspace Structure
 
+**Actual Implementation** (NX Monorepo):
+
 ```
 angular-bhp-simulator/
 ├── apps/
@@ -24,57 +26,88 @@ angular-bhp-simulator/
 │       ├── src/
 │       │   ├── app/
 │       │   │   ├── features/
-│       │   │   │   ├── dashboard/   # Main dashboard page
-│       │   │   │   ├── simulation/  # Simulation control
-│       │   │   │   └── charts/      # Chart components
+│       │   │   │   ├── dashboard/   # Dashboard page & About page
+│       │   │   │   ├── simulation/  # Simulation controls component
+│       │   │   │   └── charts/      # Chart grid component
 │       │   │   ├── shared/
-│       │   │   │   ├── components/  # Reusable UI components
-│       │   │   │   └── services/    # Theme, state services
-│       │   │   └── app.component.ts
-│       │   ├── assets/
+│       │   │   │   ├── components/  # Metrics panel (reusable UI)
+│       │   │   │   ├── services/    # AppState, Theme, Error services
+│       │   │   │   └── models/      # App state models
+│       │   │   ├── app.ts           # Root app component
+│       │   │   ├── app.config.ts    # App configuration
+│       │   │   ├── app.routes.ts    # Route definitions
+│       │   │   └── app.scss         # App styles
 │       │   ├── styles/
-│       │   └── environments/
-│       └── project.json
+│       │   │   └── themes.scss      # Theme definitions
+│       │   ├── main.ts              # Bootstrap entry
+│       │   ├── styles.scss          # Global styles
+│       │   └── index.html           # HTML entry
+│       ├── public/                  # Static assets
+│       ├── project.json             # NX project config
+│       ├── tsconfig.app.json
+│       └── tsconfig.spec.json
 │
 ├── libs/
 │   ├── bhp-calculator/              # Core BHP calculation library
 │   │   ├── src/
 │   │   │   ├── lib/
-│   │   │   │   ├── models/          # DataPoint, ComputationState
-│   │   │   │   ├── calculator/      # incremental_calc_bhp logic
-│   │   │   │   ├── data-window/     # Sliding window management
-│   │   │   │   └── cache/           # BHP cache implementation
-│   │   │   └── index.ts
+│   │   │   │   ├── models/          # DataPoint, ComputationState, etc.
+│   │   │   │   ├── services/        # BHPCalculator, BHPStream services
+│   │   │   │   ├── config/          # BHP configuration
+│   │   │   │   └── utils/           # Cache, Sliding Window utilities
+│   │   │   └── index.ts             # Public API exports
+│   │   ├── project.json
+│   │   ├── tsconfig.json
 │   │   └── README.md
 │   │
 │   ├── data-generator/              # Simulated data stream generator
 │   │   ├── src/
 │   │   │   ├── lib/
-│   │   │   │   ├── generators/      # Rate, Pressure, PropConc generators
-│   │   │   │   ├── stream/          # Data stream controller
+│   │   │   │   ├── generators/      # Various generator patterns
+│   │   │   │   ├── factories/       # Generator factory
+│   │   │   │   ├── services/        # DataGenerator service
+│   │   │   │   ├── models/          # Generator configs
+│   │   │   │   ├── utils/           # Random, noise utilities
 │   │   │   │   └── validators/      # Data validation
-│   │   │   └── index.ts
+│   │   │   └── index.ts             # Public API exports
+│   │   ├── project.json
+│   │   ├── tsconfig.json
 │   │   └── README.md
 │   │
 │   └── chart-components/            # Reusable ECharts components
 │       ├── src/
 │       │   ├── lib/
-│       │   │   ├── realtime-line-chart/
-│       │   │   ├── multi-series-chart/
-│       │   │   └── chart-config/    # ECharts configuration utilities
-│       │   └── index.ts
+│       │   │   ├── components/      # Chart components
+│       │   │   │   ├── realtime-line-chart/
+│       │   │   │   ├── multi-series-chart/
+│       │   │   │   └── metric-card/
+│       │   │   ├── services/        # ChartTheme service
+│       │   │   ├── models/          # Chart config models
+│       │   │   └── utils/           # Chart utilities
+│       │   └── index.ts             # Public API exports
+│       ├── project.json
+│       ├── tsconfig.json
 │       └── README.md
 │
+├── brainstorm/                      # Design documents
+├── docs/                            # Project documentation
+├── plan/                            # Implementation plan
+├── coverage/                        # Test coverage reports
+├── dist/                            # Build outputs
+├── tmp/                             # Temporary build files
+├── node_modules/                    # Dependencies
 ├── .github/
-│   └── workflows/
-│       ├── ci.yml                   # Build and test
-│       └── deploy.yml               # Deploy to GitHub Pages
+│   └── workflows/                   # CI/CD (not yet implemented)
+│       ├── ci.yml                   
+│       └── deploy.yml               
 │
-├── angular.json
-├── nx.json                          # Nx workspace configuration
-├── package.json
-├── tsconfig.base.json
-└── README.md
+├── nx.json                          # NX workspace configuration
+├── package.json                     # Dependencies & scripts
+├── tsconfig.base.json               # Base TypeScript config
+├── tsconfig.json                    # Root TypeScript config
+├── eslint.base.config.mjs           # Base ESLint config
+├── eslint.config.mjs                # Root ESLint config
+└── README.md                        # Project readme
 ```
 
 ## Core Components

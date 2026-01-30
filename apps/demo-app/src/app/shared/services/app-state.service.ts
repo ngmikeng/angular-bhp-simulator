@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppState, initialAppState } from '../models/app-state.model';
+import { AppState, initialAppState } from '../../shared/models/app-state.model';
 import { DataPattern, GeneratorConfig } from '@angular-bhp-simulator/data-generator';
 
 /**
