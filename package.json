@@ -5,16 +5,28 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "test:all": "nx run-many --target=test --all",
+    "test:coverage": "nx run-many --target=test --all --coverage",
+    "test:watch": "nx test --watch",
+    "lint": "nx run-many --target=lint --all",
+    "lint:fix": "nx run-many --target=lint --all --fix",
+    "format": "prettier --write \"**/*.{ts,html,scss,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,html,scss,json,md}\""
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^21.1.2",
+    "@angular/cdk": "^21.1.2",
     "@angular/common": "~21.1.0",
     "@angular/compiler": "~21.1.0",
     "@angular/core": "~21.1.0",
     "@angular/forms": "~21.1.0",
+    "@angular/material": "^21.1.2",
     "@angular/platform-browser": "~21.1.0",
     "@angular/router": "~21.1.0",
+    "echarts": "^6.0.0",
+    "ngx-echarts": "^21.0.0",
     "rxjs": "~7.8.0"
   },
   "devDependencies": {
