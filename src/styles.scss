@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 // Import custom themes
-@import './styles/themes.scss';
+@use './styles/themes.scss';
 
 // Global styles
 * {
