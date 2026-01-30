@@ -1,0 +1,34 @@
+<div class="metrics-grid">
+  <lib-metric-card
+    icon="speed"
+    label="Current Rate"
+    [value]="rateMetric.value"
+    [unit]="rateMetric.unit"
+    [trend]="rateMetric.changePercent"
+  />
+
+  <lib-metric-card
+    icon="compress"
+    label="Treating Pressure"
+    [value]="pressureMetric.value"
+    [unit]="pressureMetric.unit"
+    [trend]="pressureMetric.changePercent"
+  />
+
+  <lib-metric-card
+    icon="science"
+    label="Prop Concentration"
+    [value]="propConcMetric.value"
+    [unit]="propConcMetric.unit"
+    [trend]="propConcMetric.changePercent"
+  />
+
+  <lib-metric-card
+    icon="trending_up"
+    label="Bottomhole Pressure"
+    [value]="bhpMetric.value"
+    [unit]="bhpMetric.unit"
+    [trend]="bhpMetric.changePercent"
+    [isCalculated]="bhpMetric.isCalculated"
+  />
+</div>

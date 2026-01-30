@@ -1,0 +1,67 @@
+<mat-card class="controls-card">
+  <mat-card-header>
+    <mat-card-title>Simulation Controls</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="controls-container">
+      <!-- Play/Pause Button -->
+      <div class="control-group">
+        <button
+          mat-raised-button
+          color="primary"
+          class="play-pause-button"
+          (click)="onStartStop()"
+          [matTooltip]="getPlayPauseLabel() + ' simulation'"
+        >
+          <mat-icon>{{ getPlayPauseIcon() }}</mat-icon>
+          <span>{{ getPlayPauseLabel() }}</span>
+        </button>
+      </div>
+
+      <!-- Speed Control -->
+      <div class="control-group">
+        <label class="control-label">Speed</label>
+        <mat-form-field class="speed-select">
+          <mat-select
+            [value]="currentSpeed"
+            (selectionChange)="onSpeedChange($event.value)"
+            [disabled]="!isRunning"
+          >
+            <mat-option *ngFor="let speed of speeds" [value]="speed.value">
+              {{ speed.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Pattern Control -->
+      <div class="control-group">
+        <label class="control-label">Data Pattern</label>
+        <mat-form-field class="pattern-select">
+          <mat-select
+            [value]="currentPattern"
+            (selectionChange)="onPatternChange($event.value)"
+          >
+            <mat-option *ngFor="let pattern of patterns" [value]="pattern.value">
+              {{ pattern.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Reset Button -->
+      <div class="control-group">
+        <button
+          mat-stroked-button
+          (click)="onReset()"
+          matTooltip="Reset simulation to initial state"
+          class="reset-button"
+        >
+          <mat-icon>restart_alt</mat-icon>
+          <span>Reset</span>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

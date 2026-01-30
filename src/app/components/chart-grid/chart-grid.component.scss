@@ -1,0 +1,52 @@
+.chart-grid {
+  display: grid;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.chart-full {
+  grid-column: 1 / -1;
+  min-height: 400px;
+}
+
+.chart-half {
+  min-height: 300px;
+}
+
+// Desktop layout (2x2 grid for individual charts)
+@media (min-width: 1025px) {
+  .chart-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Tablet layout (1x3 stack)
+@media (min-width: 769px) and (max-width: 1024px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-full {
+    min-height: 350px;
+  }
+
+  .chart-half {
+    min-height: 280px;
+  }
+}
+
+// Mobile layout (full stack)
+@media (max-width: 768px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .chart-full {
+    min-height: 300px;
+  }
+
+  .chart-half {
+    min-height: 250px;
+  }
+}

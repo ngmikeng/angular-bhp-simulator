@@ -1,0 +1,43 @@
+<div class="chart-grid">
+  <!-- Main Multi-Series Chart -->
+  <div class="chart-full">
+    <lib-multi-series-chart
+      [config]="multiSeriesConfig"
+      [dataStream$]="multiSeriesStream$"
+      [isDarkTheme]="isDarkTheme"
+    />
+  </div>
+
+  <!-- Individual Charts -->
+  <div class="chart-half">
+    <lib-realtime-line-chart
+      [config]="rateChartConfig"
+      [dataStream$]="rateStream$"
+      [isDarkTheme]="isDarkTheme"
+    />
+  </div>
+
+  <div class="chart-half">
+    <lib-realtime-line-chart
+      [config]="pressureChartConfig"
+      [dataStream$]="pressureStream$"
+      [isDarkTheme]="isDarkTheme"
+    />
+  </div>
+
+  <div class="chart-half">
+    <lib-realtime-line-chart
+      [config]="propConcChartConfig"
+      [dataStream$]="propConcStream$"
+      [isDarkTheme]="isDarkTheme"
+    />
+  </div>
+
+  <div class="chart-half">
+    <lib-realtime-line-chart
+      [config]="bhpChartConfig"
+      [dataStream$]="bhpStream$"
+      [isDarkTheme]="isDarkTheme"
+    />
+  </div>
+</div>

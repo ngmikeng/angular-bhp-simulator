@@ -1,0 +1,103 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+}
+
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .title-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    padding: 0 1rem;
+
+    .app-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+
+    .app-title {
+      @media (max-width: 600px) {
+        display: none;
+      }
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .nav-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0.25rem;
+
+    .nav-label {
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .theme-button {
+    margin-left: 0.5rem;
+
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.app-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  background-color: var(--bg-primary);
+}
+
+// Snackbar styles
+::ng-deep {
+  .snackbar-error {
+    background-color: #f44336 !important;
+    color: white !important;
+
+    .mat-mdc-button {
+      color: white !important;
+    }
+  }
+
+  .snackbar-warning {
+    background-color: #ff9800 !important;
+    color: white !important;
+
+    .mat-mdc-button {
+      color: white !important;
+    }
+  }
+
+  .snackbar-info {
+    background-color: #2196f3 !important;
+    color: white !important;
+
+    .mat-mdc-button {
+      color: white !important;
+    }
+  }
+}

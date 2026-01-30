@@ -1,0 +1,125 @@
+<div class="about-container">
+  <!-- Header -->
+  <div class="about-header">
+    <h1>BHP Real-Time Simulator</h1>
+    <p class="subtitle">
+      A demonstration of bottomhole pressure calculation from surface measurements
+      using Angular and real-time data streaming
+    </p>
+  </div>
+
+  <!-- Project Description -->
+  <mat-card class="section-card">
+    <mat-card-header>
+      <mat-card-title>About the Project</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        The BHP Real-Time Simulator is an educational application that demonstrates
+        how bottomhole pressure (BHP) is calculated from surface measurements during
+        hydraulic fracturing operations. The application simulates real-time data
+        streaming and applies a backward-looking incremental algorithm to compute BHP
+        values.
+      </p>
+      <p>
+        This project showcases modern web development practices including reactive
+        programming with RxJS, component-based architecture with Angular, and
+        real-time data visualization with ECharts.
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Algorithm Explanation -->
+  <mat-card class="section-card">
+    <mat-card-header>
+      <mat-card-title>The BHP Algorithm</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        The backward-looking incremental BHP algorithm calculates the bottomhole
+        pressure based on:
+      </p>
+      <ul>
+        <li><strong>Slurry Rate:</strong> The pumping rate at surface (barrels per minute)</li>
+        <li><strong>Treating Pressure:</strong> The pressure measured at surface (PSI)</li>
+        <li><strong>Proppant Concentration:</strong> The concentration of proppant in the slurry (pounds per gallon)</li>
+      </ul>
+      <p>
+        The algorithm maintains a sliding time window of historical data and applies
+        fluid mechanics principles to estimate the pressure at the bottom of the
+        wellbore, accounting for factors such as:
+      </p>
+      <ul>
+        <li>Fluid friction in the wellbore</li>
+        <li>Hydrostatic pressure from fluid column</li>
+        <li>Proppant settling and transport</li>
+        <li>Time delays between surface and downhole</li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Features -->
+  <mat-card class="section-card">
+    <mat-card-header>
+      <mat-card-title>Key Features</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="features-grid">
+        <div *ngFor="let feature of features" class="feature-item">
+          <mat-icon class="feature-icon">{{ feature.icon }}</mat-icon>
+          <div class="feature-content">
+            <h3>{{ feature.title }}</h3>
+            <p>{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Technology Stack -->
+  <mat-card class="section-card">
+    <mat-card-header>
+      <mat-card-title>Technology Stack</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="tech-grid">
+        <div *ngFor="let tech of technologies" class="tech-item">
+          <mat-icon>{{ tech.icon }}</mat-icon>
+          <div class="tech-info">
+            <h4>{{ tech.name }}</h4>
+            <span class="version">{{ tech.version }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Links -->
+  <mat-card class="section-card">
+    <mat-card-header>
+      <mat-card-title>Resources</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="links-container">
+        <button mat-raised-button color="primary" (click)="openGithub()">
+          <mat-icon>code</mat-icon>
+          View on GitHub
+        </button>
+        <button mat-raised-button (click)="openDocs()">
+          <mat-icon>description</mat-icon>
+          Documentation
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Footer -->
+  <div class="about-footer">
+    <p>
+      Built with ❤️ using Angular, Material Design, and ECharts
+    </p>
+    <p class="copyright">
+      © {{ currentYear }} BHP Simulator Project
+    </p>
+  </div>
+</div>

@@ -41,11 +41,16 @@ $dark-theme: mat.m2-define-dark-theme(
   @include mat.all-component-themes($light-theme);
 
   // Custom variables for light theme
-  --bg-primary: #ffffff;
+  --bg-primary: #fafafa;
   --bg-secondary: #f5f5f5;
   --text-primary: rgba(0, 0, 0, 0.87);
-  --text-secondary: rgba(0, 0, 0, 0.54);
-  --border-color: #e0e0e0;
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --divider-color: rgba(0, 0, 0, 0.12);
+  --primary-color: #2196f3;
+  --accent-color: #ff9800;
+  --warn-color: #f44336;
+  --success-color: #4caf50;
+  --info-color: #03a9f4;
 }
 
 // Dark theme
@@ -53,9 +58,14 @@ $dark-theme: mat.m2-define-dark-theme(
   @include mat.all-component-themes($dark-theme);
 
   // Custom variables for dark theme
-  --bg-primary: #303030;
-  --bg-secondary: #424242;
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #2d2d2d;
   --text-primary: rgba(255, 255, 255, 0.87);
-  --text-secondary: rgba(255, 255, 255, 0.54);
-  --border-color: #616161;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --divider-color: rgba(255, 255, 255, 0.12);
+  --primary-color: #64b5f6;
+  --accent-color: #ffb74d;
+  --warn-color: #ef5350;
+  --success-color: #81c784;
+  --info-color: #4fc3f7;
 }
