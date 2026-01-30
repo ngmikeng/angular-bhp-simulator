@@ -4,3 +4,6 @@
 /.nx/cache
 /.nx/workspace-data
 .angular
+node_modules
+*.md
+package-lock.json
