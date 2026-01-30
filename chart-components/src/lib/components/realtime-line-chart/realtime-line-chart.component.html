@@ -1,0 +1,9 @@
+<div class="chart-container" [class.dark-theme]="isDarkTheme">
+  <div 
+    echarts 
+    [options]="chartOptions()" 
+    [merge]="updateOptions()"
+    (chartInit)="onChartInit($event)"
+    class="chart">
+  </div>
+</div>

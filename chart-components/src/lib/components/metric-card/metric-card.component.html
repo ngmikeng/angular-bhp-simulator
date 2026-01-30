@@ -1,0 +1,28 @@
+<mat-card class="metric-card" [class.warning]="isWarning">
+  <div class="card-content">
+    <div class="icon-section" [style.color]="iconColor">
+      <mat-icon class="metric-icon">{{ icon }}</mat-icon>
+    </div>
+    
+    <div class="content-section">
+      <div class="header">
+        <span class="label">{{ label }}</span>
+        <span class="badge calculated" *ngIf="isCalculated" title="Calculated Value">
+          <mat-icon class="badge-icon">calculate</mat-icon>
+        </span>
+      </div>
+      
+      <div class="value-section">
+        <span class="value">{{ formattedValue }}</span>
+        <span class="unit" *ngIf="unit">{{ unit }}</span>
+      </div>
+      
+      <div class="trend-section" *ngIf="trend !== null && trend !== undefined">
+        <mat-icon class="trend-icon" [class]="trendClass">{{ trendIcon }}</mat-icon>
+        <span class="trend-value" [class]="trendClass">
+          {{ formattedTrend }}%
+        </span>
+      </div>
+    </div>
+  </div>
+</mat-card>
