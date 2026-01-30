@@ -1,7 +1,9 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideEcharts } from 'ngx-echarts';
+// import echarts core
+import * as echarts from 'echarts/core';
+import { provideEchartsCore } from 'ngx-echarts';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -9,6 +11,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
     provideAnimations(),
-    provideEcharts(),
+    provideEchartsCore({ echarts }),
   ],
 };
