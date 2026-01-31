@@ -47,6 +47,7 @@ export const initialAppState: AppState = {
     basePropConc: 2.5,
     propConcLimits: [0, 15],
     noiseLevel: 0.1,
+    normalizeTimestampToSeconds: true,
   },
   selectedMetrics: ['rate', 'pressure', 'propConc', 'bhp'],
 };

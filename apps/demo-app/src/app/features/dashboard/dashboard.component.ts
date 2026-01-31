@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, Subject, EMPTY } from 'rxjs';
-import { takeUntil, catchError, tap, shareReplay } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 import {
   DataGeneratorService,
   GeneratorConfig,
@@ -93,8 +93,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       // Set up BHP calculator configuration with initial flush volume
       this.bhpCalculator.setFlushVolume(50); // Default flush volume in barrels
 
-      // Create empty stream initially
-      this.dataStream$ = EMPTY;
+      // Connect to BHP calculator's enhanced data stream ONCE
+      // This is a hot observable - it will emit whenever addDataPoint() is called
+      this.dataStream$ = this.bhpCalculator.enhancedDataPoint$.pipe(
+        tap(() => {
+          this.isLoading = false;
+        })
+      );
     } catch (error) {
       this.errorService.handleError(error, 'Pipeline initialization');
     }
@@ -111,10 +116,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const config = this.appState.getState().generatorConfig;
       this.dataGenerator.configure(config);
 
-      // Start generating data and process through BHP calculator
+      // Start generating data and feed it to BHP calculator
+      // The BHP calculator will emit enhanced data points on enhancedDataPoint$
       const rawData$ = this.dataGenerator.start();
 
-      // Subscribe to raw data and feed it to BHP stream service
       rawData$.pipe(takeUntil(this.destroy$)).subscribe({
         next: (dataPoint) => {
           this.bhpCalculator.addDataPoint(dataPoint);
@@ -125,20 +130,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.isLoading = false;
         },
       });
-
-      // Get enhanced data stream from BHP calculator
-      this.dataStream$ = this.bhpCalculator.enhancedDataPoint$.pipe(
-        tap(() => {
-          this.isLoading = false;
-        }),
-        catchError((error) => {
-          this.errorService.handleStreamError(error);
-          this.appState.stopSimulation();
-          this.isLoading = false;
-          return EMPTY;
-        }),
-        shareReplay(1)
-      );
     } catch (error) {
       this.errorService.handleError(error, 'Starting data pipeline');
       this.appState.stopSimulation();

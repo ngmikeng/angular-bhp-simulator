@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, interval, BehaviorSubject, Subject, NEVER } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, Subject, NEVER, timer } from 'rxjs';
+import { map, takeUntil, tap, switchMap } from 'rxjs/operators';
 import {
   GeneratorConfig,
   DEFAULT_GENERATOR_CONFIG,
@@ -78,12 +78,19 @@ export class DataGeneratorService {
     this._isRunning$.next(true);
     this.stop$ = new Subject<void>();
 
-    const intervalMs = 1000 / this.config.samplingRateHz;
+    const baseIntervalMs = 1000 / this.config.samplingRateHz;
 
-    return interval(intervalMs).pipe(
+    // Dynamic interval: when speed changes, emit data faster/slower
+    // Speed 2x = emit every 500ms instead of 1000ms (twice as fast)
+    return this._speed$.pipe(
+      switchMap((speed) => {
+        const adjustedIntervalMs = baseIntervalMs / speed;
+        return timer(0, adjustedIntervalMs);
+      }),
       takeUntil(this.stop$),
       tap(() => {
-        this.elapsedSeconds += (intervalMs / 1000) * this._speed$.value;
+        // Simulation time advances at base rate regardless of speed
+        this.elapsedSeconds += (baseIntervalMs / 1000);
       }),
       map(() => this.generateDataPoint())
     );

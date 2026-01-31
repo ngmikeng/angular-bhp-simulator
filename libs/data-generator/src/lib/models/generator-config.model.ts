@@ -77,6 +77,13 @@ export interface GeneratorConfig {
    * @default undefined (uses Date.now())
    */
   seed?: number;
+
+  /**
+   * Normalize timestamp to seconds (floor to nearest second)
+   * Useful for aligning timestamps with BHP calculations
+   * @default false
+   */
+  normalizeTimestampToSeconds?: boolean;
 }
 
 /**
@@ -164,6 +171,7 @@ export const DEFAULT_GENERATOR_CONFIG: GeneratorConfig = {
   basePropConc: 2.5,
   propConcLimits: [0, 15],
   noiseLevel: 0.1,
+  normalizeTimestampToSeconds: false,
 };
 
 /**

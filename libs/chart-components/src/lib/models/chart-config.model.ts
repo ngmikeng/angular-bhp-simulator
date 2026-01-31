@@ -115,7 +115,7 @@ export interface MultiSeriesConfig {
 
   /**
    * Maximum number of data points to display
-   * @default 600 (10 minutes at 1/sec)
+   * @default 15000 (250 minutes at 1/sec)
    */
   maxDataPoints?: number;
 
