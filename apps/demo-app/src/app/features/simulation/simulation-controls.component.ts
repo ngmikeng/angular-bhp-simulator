@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
@@ -7,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AppStateService } from '../../shared/services/app-state.service';
@@ -21,6 +23,7 @@ import { DataPattern } from '@angular-bhp-simulator/data-generator';
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     MatButtonModule,
     MatSelectModule,
     MatSliderModule,
@@ -28,6 +31,7 @@ import { DataPattern } from '@angular-bhp-simulator/data-generator';
     MatTooltipModule,
     MatCardModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
   templateUrl: './simulation-controls.component.html',
   styleUrl: './simulation-controls.component.scss',
@@ -58,6 +62,7 @@ export class SimulationControlsComponent implements OnInit, OnDestroy {
   public isRunning = false;
   public currentSpeed = 1;
   public currentPattern: DataPattern = 'realistic';
+  public offsetTimeMinutes = 3;
 
   constructor(public appState: AppStateService) {}
 
@@ -73,6 +78,10 @@ export class SimulationControlsComponent implements OnInit, OnDestroy {
 
     this.appState.pattern$.pipe(takeUntil(this.destroy$)).subscribe((pattern) => {
       this.currentPattern = pattern;
+    });
+
+    this.appState.offsetTimeMinutes$.pipe(takeUntil(this.destroy$)).subscribe((minutes) => {
+      this.offsetTimeMinutes = minutes;
     });
   }
 
@@ -104,6 +113,15 @@ export class SimulationControlsComponent implements OnInit, OnDestroy {
    */
   public onPatternChange(pattern: DataPattern): void {
     this.appState.setPattern(pattern);
+  }
+
+  /**
+   * Handle offset time change
+   */
+  public onOffsetTimeChange(minutes: number): void {
+    if (minutes >= 0) {
+      this.appState.setOffsetTimeMinutes(minutes);
+    }
   }
 
   /**

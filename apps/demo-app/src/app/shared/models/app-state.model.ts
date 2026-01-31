@@ -28,6 +28,12 @@ export interface AppState {
    * Selected metrics to display
    */
   selectedMetrics: string[];
+
+  /**
+   * Offset time in minutes for BHP calculation
+   * BHP = PropConc shifted by this offset time
+   */
+  offsetTimeMinutes: number;
 }
 
 /**
@@ -50,6 +56,7 @@ export const initialAppState: AppState = {
     normalizeTimestampToSeconds: false,
   },
   selectedMetrics: ['rate', 'pressure', 'propConc', 'bhp'],
+  offsetTimeMinutes: 3, // Default 3 minutes offset
 };
 
 /**

@@ -16,7 +16,7 @@ export interface BHPCalculationConfig {
 
   /**
    * Minimum valid offset in minutes
-   * Default: 0.1 minutes (6 seconds)
+   * Default: 0.0167 minutes (1 second)
    */
   minOffsetMinutes: number;
 
@@ -33,6 +33,6 @@ export interface BHPCalculationConfig {
 export const DEFAULT_BHP_CONFIG: BHPCalculationConfig = {
   maxTimeDiffSeconds: 60,
   maxOffsetMinutes: 120,
-  minOffsetMinutes: 0.1,
+  minOffsetMinutes: 0.0167,
   windowSizeSeconds: 7200,
 };

@@ -6,15 +6,15 @@ import { BHPCalculationConfig, DEFAULT_BHP_CONFIG } from '../config/bhp-config.m
 
 /**
  * Service for calculating Bottom Hole Proppant Concentration (BHP)
- * using the backward-looking incremental algorithm.
+ * using a simple time-shifted approach.
  *
  * Algorithm Overview:
- * 1. Check cache for existing value
- * 2. Validate prerequisites (flush volume, sufficient history)
- * 3. Calculate time offset based on flush volume and rate
- * 4. Look backward in time to find historical data point
- * 5. Return historical prop_conc as BHP
- * 6. Cache result for future lookups
+ * BHP at time T = PropConc at time (T - offsetTime)
+ * where offsetTime = flushVolume / rate (in minutes)
+ *
+ * This creates a delayed version of the PropConc signal,
+ * representing the time it takes for proppant to travel
+ * from surface to bottom hole.
  */
 @Injectable({
   providedIn: 'root',
@@ -25,10 +25,11 @@ export class BHPCalculatorService {
   constructor() {}
 
   /**
-   * Calculate BHP for a target timestamp using backward-looking algorithm
+   * Calculate BHP for a target timestamp using simple time-shift approach
+   * BHP = PropConc shifted by offset time (user-defined in minutes)
    *
    * @param targetTimestamp - Timestamp to calculate BHP for
-   * @param state - Computation state containing data window and cache
+   * @param state - Computation state containing data window
    * @returns BHP calculation result with diagnostic information
    */
   public calculateBHP(
@@ -46,186 +47,85 @@ export class BHPCalculatorService {
       fromCache: false,
     };
 
-    // Step 1: Check cache
-    const cachedBHP = state.getCachedBHP(targetTimestamp);
-    if (cachedBHP !== null) {
-      details.fromCache = true;
-      return { bhp: cachedBHP, details };
-    }
-
-    // Step 2: Validate prerequisites
-    const flushVolume = state.getFlushVolume();
-    if (flushVolume === null || flushVolume <= 0) {
-      details.errorMessage = 'Flush volume not set or invalid';
+    // Get offset time in minutes (directly from user input)
+    const offsetMinutes = state.getOffsetTimeMinutes();
+    if (offsetMinutes === null || offsetMinutes < 0) {
+      details.errorMessage = 'Offset time not set or invalid';
       return { bhp: null, details };
     }
 
     const dataWindow = state.getDataWindow();
-    if (dataWindow.length < 2) {
-      details.errorMessage =
-        'Insufficient data points in window (need at least 2)';
+    if (dataWindow.length === 0) {
+      details.errorMessage = 'No data points in window';
       return { bhp: null, details };
     }
 
-    // Step 3: Get reference rate (from target timestamp or most recent)
-    const referenceRate = this.getReferenceRate(targetTimestamp, dataWindow);
-    details.referenceRate = referenceRate;
-
-    if (referenceRate <= 0 || !isFinite(referenceRate)) {
-      details.errorMessage = 'Invalid reference rate (must be > 0)';
-      return { bhp: 0, details }; // Return 0 for zero rate (pump stopped)
-    }
-
-    // Step 4: Calculate offset
-    const offsetMinutes = flushVolume / referenceRate;
+    // Use offset time directly (no calculation from flush volume / rate)
     details.offsetMinutes = offsetMinutes;
-
-    // Validate offset range
-    if (
-      offsetMinutes < this.config.minOffsetMinutes ||
-      offsetMinutes > this.config.maxOffsetMinutes
-    ) {
-      details.errorMessage = `Offset out of valid range (${this.config.minOffsetMinutes} - ${this.config.maxOffsetMinutes} min)`;
-      return { bhp: 0, details };
-    }
 
     const offsetMilliseconds = offsetMinutes * 60 * 1000;
     details.offsetMilliseconds = offsetMilliseconds;
 
-    // Step 5: Calculate historical timestamp
+    // Calculate historical timestamp
     const historicalTimestamp = targetTimestamp - offsetMilliseconds;
     details.historicalTimestamp = historicalTimestamp;
 
-    // Step 6: Find closest historical data point
-    const historicalPoint = this.findClosestDataPoint(
-      historicalTimestamp,
-      dataWindow
-    );
+    // Find closest data point to the historical timestamp
+    const historicalPoint = this.findClosestDataPoint(historicalTimestamp, dataWindow);
     details.historicalPoint = historicalPoint;
 
     if (historicalPoint === null) {
-      details.errorMessage = 'No historical data point found in window';
+      // Not enough history yet - return null (waiting for data to accumulate)
+      details.errorMessage = 'Waiting for data history (offset time not yet reached)';
       return { bhp: null, details };
     }
 
-    // Calculate time difference
+    // Calculate time difference for diagnostics
     const timeDiffMs = Math.abs(historicalPoint.timestamp - historicalTimestamp);
     const timeDiffSeconds = timeDiffMs / 1000;
     details.timeDifferenceSeconds = timeDiffSeconds;
 
-    // Step 7: Check tolerance
-    if (timeDiffSeconds > this.config.maxTimeDiffSeconds) {
-      details.errorMessage = `Historical point too far (${timeDiffSeconds.toFixed(
-        1
-      )}s > ${this.config.maxTimeDiffSeconds}s)`;
-      return { bhp: null, details };
-    }
-
-    // Step 8: Extract BHP value (historical prop_conc)
+    // BHP = PropConc from the historical point (simple time shift)
     const bhp = historicalPoint.propConc;
-
-    // Step 9: Cache result
-    state.cacheBHP(targetTimestamp, bhp);
 
     return { bhp, details };
   }
 
   /**
-   * Get reference rate for a target timestamp
-   * Prefers rate at target timestamp, falls back to most recent
-   *
-   * @param targetTimestamp Target timestamp
-   * @param dataWindow Array of data points (sorted by timestamp)
-   * @returns Reference rate in bbl/min
-   */
-  private getReferenceRate(
-    targetTimestamp: number,
-    dataWindow: DataPoint[]
-  ): number {
-    if (dataWindow.length === 0) {
-      return 0;
-    }
-
-    // Try to find exact timestamp match
-    const exactMatch = dataWindow.find((p) => p.timestamp === targetTimestamp);
-    if (exactMatch) {
-      return exactMatch.rate;
-    }
-
-    // Find closest point at or before target timestamp
-    let closest: DataPoint | null = null;
-    for (const point of dataWindow) {
-      if (point.timestamp <= targetTimestamp) {
-        closest = point;
-      } else {
-        break; // Window is sorted by timestamp
-      }
-    }
-
-    // Fall back to most recent point if no point before target
-    return closest ? closest.rate : dataWindow[dataWindow.length - 1].rate;
-  }
-
-  /**
    * Find closest data point to a target timestamp in the window
-   * Uses binary search for O(log n) complexity
    *
    * @param targetTimestamp Target timestamp to search for
    * @param dataWindow Array of data points (sorted by timestamp)
-   * @returns Closest data point or null if window is empty
+   * @param toleranceMs Maximum allowed time difference in milliseconds (default: 60000ms = 1 minute)
+   * @returns Closest data point within tolerance, or null if none found
    */
   private findClosestDataPoint(
     targetTimestamp: number,
-    dataWindow: DataPoint[]
+    dataWindow: DataPoint[],
+    toleranceMs: number = 60000
   ): DataPoint | null {
     if (dataWindow.length === 0) {
       return null;
     }
 
-    // Binary search to find insertion point
-    let left = 0;
-    let right = dataWindow.length - 1;
+    let closest: DataPoint | null = null;
+    let minDiff = Number.MAX_SAFE_INTEGER;
 
-    // Check bounds
-    if (targetTimestamp <= dataWindow[left].timestamp) {
-      return dataWindow[left];
-    }
-    if (targetTimestamp >= dataWindow[right].timestamp) {
-      return dataWindow[right];
-    }
+    for (const point of dataWindow) {
+      const diff = Math.abs(point.timestamp - targetTimestamp);
 
-    // Binary search
-    while (left <= right) {
-      const mid = Math.floor((left + right) / 2);
-      const midPoint = dataWindow[mid];
-
-      if (midPoint.timestamp === targetTimestamp) {
-        return midPoint; // Exact match
-      }
-
-      if (midPoint.timestamp < targetTimestamp) {
-        left = mid + 1;
-      } else {
-        right = mid - 1;
+      if (diff < minDiff) {
+        minDiff = diff;
+        closest = point;
       }
     }
 
-    // At this point, right < left
-    // right points to largest element < target
-    // left points to smallest element > target
-    // Choose the closest one
-
-    if (right < 0) {
-      return dataWindow[left];
+    // Only return if within tolerance
+    if (minDiff <= toleranceMs) {
+      return closest;
+    } else {
+      return null;
     }
-    if (left >= dataWindow.length) {
-      return dataWindow[right];
-    }
-
-    const leftDiff = Math.abs(dataWindow[left].timestamp - targetTimestamp);
-    const rightDiff = Math.abs(dataWindow[right].timestamp - targetTimestamp);
-
-    return leftDiff < rightDiff ? dataWindow[left] : dataWindow[right];
   }
 
   /**

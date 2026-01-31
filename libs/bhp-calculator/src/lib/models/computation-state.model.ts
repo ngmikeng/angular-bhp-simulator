@@ -22,10 +22,10 @@ export class ComputationState {
   private readonly windowSizeSeconds: number;
 
   /**
-   * Flush volume in barrels
-   * This is the volume of fluid in the wellbore
+   * Offset time in minutes for BHP calculation
+   * BHP = PropConc shifted by this offset time
    */
-  private flushVolume: number | null = null;
+  private offsetTimeMinutes: number | null = null;
 
   /**
    * Window start timestamp (oldest point in window)
@@ -66,17 +66,17 @@ export class ComputationState {
   }
 
   /**
-   * Set flush volume for BHP calculations
+   * Set offset time for BHP calculations
    */
-  public setFlushVolume(volume: number): void {
-    this.flushVolume = volume;
+  public setOffsetTimeMinutes(minutes: number): void {
+    this.offsetTimeMinutes = minutes;
   }
 
   /**
-   * Get current flush volume
+   * Get current offset time in minutes
    */
-  public getFlushVolume(): number | null {
-    return this.flushVolume;
+  public getOffsetTimeMinutes(): number | null {
+    return this.offsetTimeMinutes;
   }
 
   /**
@@ -140,7 +140,7 @@ export class ComputationState {
     this.dataWindow = [];
     this.bhpCache.clear();
     this.windowStartTimestamp = 0;
-    this.flushVolume = null;
+    this.offsetTimeMinutes = null;
   }
 
   /**

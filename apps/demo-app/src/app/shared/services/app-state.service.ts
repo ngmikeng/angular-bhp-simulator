@@ -34,6 +34,10 @@ export class AppStateService {
     map((s) => s.selectedMetrics)
   );
 
+  public readonly offsetTimeMinutes$: Observable<number> = this.state$.pipe(
+    map((s) => s.offsetTimeMinutes)
+  );
+
   /**
    * Get current state snapshot
    */
@@ -92,6 +96,15 @@ export class AppStateService {
         ...config,
       },
     });
+  }
+
+  /**
+   * Set offset time for BHP calculation
+   */
+  public setOffsetTimeMinutes(minutes: number): void {
+    if (minutes >= 0) {
+      this.updateState({ offsetTimeMinutes: minutes });
+    }
   }
 
   /**

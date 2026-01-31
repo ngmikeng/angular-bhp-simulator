@@ -45,6 +45,10 @@
   width: 180px;
 }
 
+.offset-time-input {
+  width: 140px;
+}
+
 .reset-button {
   display: flex;
   align-items: center;
@@ -71,7 +75,8 @@
   }
 
   .speed-select,
-  .pattern-select {
+  .pattern-select,
+  .offset-time-input {
     width: 100%;
   }
 

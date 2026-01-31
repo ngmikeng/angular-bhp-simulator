@@ -75,6 +75,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.dataGenerator.setSpeed(speed);
     });
 
+    // Subscribe to offset time changes
+    this.appState.offsetTimeMinutes$.pipe(takeUntil(this.destroy$)).subscribe((minutes) => {
+      this.bhpCalculator.setOffsetTimeMinutes(minutes);
+    });
+
     // Initialize data pipeline (but don't start it)
     this.initializeDataPipeline();
   }
@@ -90,8 +95,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
    */
   private initializeDataPipeline(): void {
     try {
-      // Set up BHP calculator configuration with initial flush volume
-      this.bhpCalculator.setFlushVolume(50); // Default flush volume in barrels
+      // Set up BHP calculator with initial offset time from app state
+      const initialOffsetTime = this.appState.getState().offsetTimeMinutes;
+      this.bhpCalculator.setOffsetTimeMinutes(initialOffsetTime);
 
       // Connect to BHP calculator's enhanced data stream ONCE
       // This is a hot observable - it will emit whenever addDataPoint() is called

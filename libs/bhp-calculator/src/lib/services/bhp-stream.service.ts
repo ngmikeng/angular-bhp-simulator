@@ -21,9 +21,9 @@ export class BHPStreamService {
   private readonly dataPointSubject = new Subject<DataPoint>();
   public readonly dataPoint$ = this.dataPointSubject.asObservable();
 
-  // Configuration stream: flush volume
-  private readonly flushVolumeSubject = new BehaviorSubject<number>(120);
-  public readonly flushVolume$ = this.flushVolumeSubject.asObservable();
+  // Configuration stream: offset time in minutes
+  private readonly offsetTimeMinutesSubject = new BehaviorSubject<number>(3);
+  public readonly offsetTimeMinutes$ = this.offsetTimeMinutesSubject.asObservable();
 
   // Output stream: enhanced data points with BHP
   public readonly enhancedDataPoint$: Observable<EnhancedDataPoint>;
@@ -34,9 +34,9 @@ export class BHPStreamService {
   constructor() {
     this.calculator = new BHPCalculatorService();
 
-    // Update flush volume in state when it changes
-    this.flushVolume$.subscribe((volume) => {
-      this.state.setFlushVolume(volume);
+    // Update offset time in state when it changes
+    this.offsetTimeMinutes$.subscribe((minutes) => {
+      this.state.setOffsetTimeMinutes(minutes);
     });
 
     // Process data points and calculate BHP
@@ -88,22 +88,22 @@ export class BHPStreamService {
   }
 
   /**
-   * Set the flush volume for BHP calculations
+   * Set the offset time for BHP calculations
    *
-   * @param volume Flush volume in barrels
+   * @param minutes Offset time in minutes
    */
-  public setFlushVolume(volume: number): void {
-    if (volume <= 0) {
-      throw new Error('Flush volume must be positive');
+  public setOffsetTimeMinutes(minutes: number): void {
+    if (minutes < 0) {
+      throw new Error('Offset time must be non-negative');
     }
-    this.flushVolumeSubject.next(volume);
+    this.offsetTimeMinutesSubject.next(minutes);
   }
 
   /**
-   * Get current flush volume
+   * Get current offset time in minutes
    */
-  public getFlushVolume(): number {
-    return this.flushVolumeSubject.value;
+  public getOffsetTimeMinutes(): number {
+    return this.offsetTimeMinutesSubject.value;
   }
 
   /**
