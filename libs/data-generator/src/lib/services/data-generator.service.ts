@@ -188,7 +188,12 @@ export class DataGeneratorService {
    * @returns Data point with timestamp
    */
   private generateDataPoint(): DataPoint {
-    const timestamp = Date.now();
+    // Optionally normalize timestamp to seconds (strip milliseconds)
+    // Example: 1769861165331 -> 1769861165000
+    const now = Date.now();
+    const timestamp = this.config.normalizeTimestampToSeconds 
+      ? Math.floor(now / 1000) * 1000 
+      : now;
     const generated = this.generator.generate(this.elapsedSeconds);
 
     // Validate generated data

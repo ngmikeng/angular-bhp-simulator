@@ -3,7 +3,7 @@
   <div class="about-header">
     <h1>BHP Real-Time Simulator</h1>
     <p class="subtitle">
-      A demonstration of bottomhole pressure calculation from surface measurements
+      A demonstration of bottomhole proppant concentration calculation from surface measurements
       using Angular and real-time data streaming
     </p>
   </div>
@@ -16,7 +16,7 @@
     <mat-card-content>
       <p>
         The BHP Real-Time Simulator is an educational application that demonstrates
-        how bottomhole pressure (BHP) is calculated from surface measurements during
+        how bottomhole proppant concentration (BHP) is calculated from surface measurements during
         hydraulic fracturing operations. The application simulates real-time data
         streaming and applies a backward-looking incremental algorithm to compute BHP
         values.
@@ -37,7 +37,7 @@
     <mat-card-content>
       <p>
         The backward-looking incremental BHP algorithm calculates the bottomhole
-        pressure based on:
+        proppant concentration based on:
       </p>
       <ul>
         <li><strong>Slurry Rate:</strong> The pumping rate at surface (barrels per minute)</li>
@@ -46,7 +46,7 @@
       </ul>
       <p>
         The algorithm maintains a sliding time window of historical data and applies
-        fluid mechanics principles to estimate the pressure at the bottom of the
+        fluid mechanics principles to estimate the proppant concentration at the bottom of the
         wellbore, accounting for factors such as:
       </p>
       <ul>

@@ -26,36 +26,38 @@ export class ChartGridComponent {
   @Input() dataStream$!: Observable<EnhancedDataPoint>;
   @Input() isDarkTheme = false;
 
+  private readonly MAX_DATA_POINTS = 15000; // 250 minutes at 1/sec
+
   // Multi-series chart configuration
   public readonly multiSeriesConfig: MultiSeriesConfig = {
     title: 'All Measurements',
     series: [
       {
-        name: 'Rate',
-        yAxisIndex: 0,
-        yAxisLabel: 'BPM',
-        lineColor: '#2196F3',
-      },
-      {
         name: 'Pressure',
-        yAxisIndex: 1,
+        yAxisIndex: 0,
         yAxisLabel: 'PSI',
         lineColor: '#FF9800',
       },
       {
+        name: 'Rate',
+        yAxisIndex: 1,
+        yAxisLabel: 'BPM',
+        lineColor: '#2196F3',
+      },
+      {
         name: 'Prop Conc',
-        yAxisIndex: 0,
+        yAxisIndex: 2,
         yAxisLabel: 'PPA',
         lineColor: '#4CAF50',
       },
       {
         name: 'BHP',
-        yAxisIndex: 1,
-        yAxisLabel: 'PSI',
+        yAxisIndex: 3,
+        yAxisLabel: 'PPA',
         lineColor: '#9C27B0',
       },
     ],
-    maxDataPoints: 120,
+    maxDataPoints: this.MAX_DATA_POINTS,
   };
 
   // Chart configurations
@@ -63,28 +65,28 @@ export class ChartGridComponent {
     title: 'Slurry Rate',
     yAxisLabel: 'Rate (BPM)',
     lineColor: '#2196F3',
-    maxDataPoints: 120,
+    maxDataPoints: this.MAX_DATA_POINTS,
   };
 
   public readonly pressureChartConfig: RealtimeChartConfig = {
     title: 'Treating Pressure',
     yAxisLabel: 'Pressure (PSI)',
     lineColor: '#FF9800',
-    maxDataPoints: 120,
+    maxDataPoints: this.MAX_DATA_POINTS,
   };
 
   public readonly propConcChartConfig: RealtimeChartConfig = {
     title: 'Proppant Concentration',
     yAxisLabel: 'Concentration (PPA)',
     lineColor: '#4CAF50',
-    maxDataPoints: 120,
+    maxDataPoints: this.MAX_DATA_POINTS,
   };
 
   public readonly bhpChartConfig: RealtimeChartConfig = {
-    title: 'Bottomhole Pressure (Calculated)',
-    yAxisLabel: 'BHP (PSI)',
+    title: 'Bottomhole Prop Conc (Calculated)',
+    yAxisLabel: 'BHP (PPA)',
     lineColor: '#9C27B0',
-    maxDataPoints: 120,
+    maxDataPoints: this.MAX_DATA_POINTS,
   };
 
   /**

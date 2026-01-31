@@ -89,7 +89,7 @@ export class ErrorService {
    */
   public handleCalculationError(error: any): void {
     console.error('Calculation error:', error);
-    this.showError('Error calculating BHP values. Please check configuration.', error);
+    this.showError('Error calculating BHP (bottomhole proppant concentration) values. Please check configuration.', error);
   }
 
   /**

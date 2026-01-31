@@ -46,7 +46,7 @@ export class AboutComponent {
     {
       title: 'BHP Calculation',
       description:
-        'Implements backward-looking incremental algorithm for bottomhole pressure',
+        'Implements backward-looking incremental algorithm for bottomhole proppant concentration',
       icon: 'calculate',
     },
     {

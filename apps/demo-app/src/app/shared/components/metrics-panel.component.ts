@@ -46,7 +46,7 @@ export class MetricsPanelComponent implements OnInit, OnDestroy {
 
   public bhpMetric: MetricData = {
     value: 0,
-    unit: 'PSI',
+    unit: 'PPA',
     trend: 'stable',
     changePercent: 0,
     isCalculated: true,

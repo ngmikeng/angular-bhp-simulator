@@ -138,7 +138,7 @@ export class MultiSeriesChartComponent implements OnInit, OnDestroy {
         nameLocation: 'middle',
         nameGap: yAxisIndex === 0 ? 50 : 50,
         nameTextStyle: {
-          color: theme.textColor,
+          color: firstSeries.lineColor ?? theme.textColor,
           fontSize: 12
         },
         position: yAxisIndex === 0 ? 'left' : 'right',
@@ -148,11 +148,11 @@ export class MultiSeriesChartComponent implements OnInit, OnDestroy {
         axisLine: {
           show: true,
           lineStyle: {
-            color: theme.axisLineColor
+            color: firstSeries.lineColor ?? theme.axisLineColor
           }
         },
         axisLabel: {
-          color: theme.textColor,
+          color: firstSeries.lineColor ?? theme.textColor,
           formatter: (value: number) => value.toFixed(1)
         },
         splitLine: {
@@ -184,6 +184,17 @@ export class MultiSeriesChartComponent implements OnInit, OnDestroy {
         areaStyle: seriesConfig.showArea ? {
           color: areaColor
         } : undefined,
+        endLabel: {
+          show: true,
+          formatter: (params: any) => {
+            const value = params.value?.[1];
+            return value != null ? `${seriesConfig.name}: ${value.toFixed(1)}` : '';
+          },
+          color: lineColor,
+          fontSize: 11,
+          fontWeight: 500,
+          distance: 8
+        },
         data: [],
         animation: true,
         animationDuration: this.config.animationDuration ?? 300,
@@ -262,7 +273,7 @@ export class MultiSeriesChartComponent implements OnInit, OnDestroy {
 
       grid: {
         left: '70px',
-        right: uniqueYAxisIndices.size > 1 ? '70px' : '40px',
+        right: uniqueYAxisIndices.size > 1 ? '140px' : '120px',
         top: '90px',
         bottom: '100px',
         containLabel: false
@@ -364,9 +375,16 @@ export class MultiSeriesChartComponent implements OnInit, OnDestroy {
         data: buffer ? buffer.toArray() : []
       };
     });
+    
+    // Calculate x-axis max with buffer (5 seconds) for real-time streaming visibility
+    const xAxisBufferMs = 5 * 1000;
+    const xAxisMax = dataPoint.timestamp + xAxisBufferMs;
 
     // Update chart
     this.updateOptions.set({
+      xAxis: {
+        max: xAxisMax
+      },
       series: seriesData
     });
 

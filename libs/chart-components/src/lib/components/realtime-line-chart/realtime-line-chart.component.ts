@@ -157,7 +157,7 @@ export class RealtimeLineChartComponent implements OnInit, OnDestroy {
 
       grid: {
         left: '60px',
-        right: '40px',
+        right: '80px',
         top: '60px',
         bottom: '80px',
         containLabel: true
@@ -189,18 +189,18 @@ export class RealtimeLineChartComponent implements OnInit, OnDestroy {
         nameLocation: 'middle',
         nameGap: 50,
         nameTextStyle: {
-          color: theme.textColor,
+          color: this.config.lineColor ?? theme.textColor,
           fontSize: 12
         },
         min: this.config.yAxisRange?.[0],
         max: this.config.yAxisRange?.[1],
         axisLine: {
           lineStyle: {
-            color: theme.axisLineColor
+            color: this.config.lineColor ?? theme.axisLineColor
           }
         },
         axisLabel: {
-          color: theme.textColor,
+          color: this.config.lineColor ?? theme.textColor,
           formatter: (value: number) => value.toFixed(1)
         },
         splitLine: {
@@ -260,6 +260,17 @@ export class RealtimeLineChartComponent implements OnInit, OnDestroy {
           areaStyle: this.config.showArea ? {
             color: areaColor
           } : undefined,
+          endLabel: {
+            show: true,
+            formatter: (params: any) => {
+              const value = params.value?.[1];
+              return value != null ? value.toFixed(1) : '';
+            },
+            color: lineColor,
+            fontSize: 11,
+            fontWeight: 500,
+            distance: 8
+          },
           data: [],
           animation: true,
           animationDuration: this.config.animationDuration ?? 300
@@ -301,9 +312,16 @@ export class RealtimeLineChartComponent implements OnInit, OnDestroy {
 
     // Get all data from buffer
     const chartData = this.dataBuffer.toArray();
+    
+    // Calculate x-axis max with buffer (2 seconds) for real-time streaming visibility
+    const xAxisBufferMs = 2000;
+    const xAxisMax = dataPoint.timestamp + xAxisBufferMs;
 
     // Update chart efficiently using merge
     this.updateOptions.set({
+      xAxis: {
+        max: xAxisMax
+      },
       series: [
         {
           data: chartData
